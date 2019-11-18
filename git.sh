@@ -1,10 +1,2 @@
-#/bin/sh
-
-# Fetch the newest code
-git fetch origin master
-
-# Hard reset
-git reset --hard origin/master
-
-# Force pull
-git pull origin master --force
+git fetch
+git checkout origin/master app.js

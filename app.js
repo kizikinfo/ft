@@ -1,5 +1,5 @@
 var toktatam = 2;
-var waittime = 8888;  
+var waittime = 20000;  
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -84,7 +84,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/'+mainjson.pullurl, function(req, res){
-  cmd.run('chmod 777 git.sh'); /* :/ Fix no perms after updating */
+  //cmd.run('chmod 777 git.sh'); /* :/ Fix no perms after updating */
   cmd.get('./git.sh', (err, data) => {  // Run our script
     if (data) console.log(data);
     if (err) console.log(err);

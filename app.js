@@ -1,5 +1,5 @@
 var toktatam = 2;
-var waittime = 89;  
+var waittime = 20000;  
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -82,9 +82,9 @@ app.use(bodyParser.json());
 app.get('/', function(req, res){
 	res.send({"st":"yes"});
 });
-
+/*
 app.get('/'+mainjson.pullurl, function(req, res){
-  //cmd.run('chmod 777 git.sh'); /* :/ Fix no perms after updating */
+  //cmd.run('chmod 777 git.sh'); // Fix no perms after updating
   cmd.get('./git.sh', (err, data) => {  // Run our script
     if (data) console.log(data);
     if (err) console.log(err);
@@ -94,7 +94,7 @@ app.get('/'+mainjson.pullurl, function(req, res){
   console.log("GIT updated with origin/master");
 	res.send({"st":"git updated!"});
 });
-
+*/
 
 var tgfuncounter;
 var tobesend = [];

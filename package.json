@@ -1,0 +1,36 @@
+{
+  "//1": "describes your app and its dependencies",
+  "//2": "https://docs.npmjs.com/files/package.json",
+  "//3": "updating this file will download and update your packages",
+  "name": "my-glitch-app",
+  "version": "0.0.1",
+  "description": "What am I about?",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.14.1",
+    "mongoose": "^4.9.3",
+    "node-cmd": "^3.0.0",
+    "node.io": "^0.5.1",
+    "nodemailer": "^4.0.1",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "request": "^2.80.0",
+    "request-promise": "^4.2.1"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "repository": {
+    "url": "https://glitch.com/edit/#!/welcome-project"
+  },
+  "license": "MIT",
+  "keywords": [
+    "node",
+    "glitch",
+    "express"
+  ]
+}

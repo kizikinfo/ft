@@ -4,12 +4,13 @@ var waittime = 999;
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var https = require('https');
-const cmd = require("node-cmd");
-
-
+var cmd = require("node-cmd");
+var request = require('request');
+var cheerio = require('cheerio');
+var nodeio = require('node.io'), options = {timeout: 10};
 var port = process.env.PORT || 2000;
-var fs = require('fs');
+var mainjson = process.env;
+
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -30,15 +31,6 @@ var Acc = new Schema({
 var Account = mongoose.model('accounts', Acc);
 
 
-
-var rp = require('request-promise');
-var util = require('util');
-var exec = require('child_process').exec;
-var request = require('request');
-const cheerio = require('cheerio');
-
-var mainjson = process.env;
-
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var emailFrom = mainjson.emailfrom;
@@ -52,22 +44,9 @@ var transport = nodemailer.createTransport(smtpTransport({
     }
 })), mailMsg;
 
+
 var uname = mainjson.username;
 var w = [];
-
-
-var os = require('os');
-var interfaces = os.networkInterfaces();
-var addresses = [];
-for (var k in interfaces) {
-    for (var k2 in interfaces[k]) {
-        var address = interfaces[k][k2];
-        if (address.family === 'IPv4' && !address.internal) {
-            addresses.push(address.address);
-        }
-    }
-}
-console.log(addresses);
 
  
 if(toktatam===1){
@@ -84,14 +63,13 @@ app.get('/', function(req, res){
 });
 
 app.get('/'+mainjson.pullurl, function(req, res){
-  cmd.run('chmod 777 git.sh'); // Fix no perms after updating
-  cmd.get('./git.sh', (err, data) => {  // Run our script
-    if (data) console.log(data);
-    if (err) console.log(err);
-  });
-  cmd.run('refresh');  // Refresh project
-
-  console.log("GIT updated with origin/master");
+	cmd.run('chmod 777 git.sh'); // Fix no perms after updating
+	cmd.get('./git.sh', (err, data) => {  // Run our script
+		if (data) console.log(data);
+		if (err) console.log(err);
+	});
+	cmd.run('refresh');  // Refresh project
+	console.log("GIT updated with origin/master");
 	res.send({"st":"git updated!"});
 });
 
@@ -101,7 +79,10 @@ var tobesend = [];
 var urlmedia = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMediaGroup?chat_id='+mainjson.chatid+'&media=';
 var urlmes = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMessage?chat_id='+mainjson.chatid+'&text=';
 
-var nodeio = require('node.io'), options = {timeout: 10};
+
+mainfn();
+app.listen(port); 
+ 
 
 function mainfn(){
 	
@@ -141,7 +122,6 @@ function mainfn(){
 	});
 }
 
-mainfn();
 
 
 function diff(a1, a2){
@@ -171,8 +151,6 @@ function diff(a1, a2){
   }
   return da;
 }
-
-app.listen(port);  
 
 
 

@@ -18,8 +18,7 @@
     "node.io": "^0.5.1",
     "nodemailer": "^4.0.1",
     "nodemailer-smtp-transport": "^2.7.4",
-    "request": "^2.80.0",
-    "request-promise": "^4.2.1"
+    "request": "^2.80.0"
   },
   "engines": {
     "node": "8.x"

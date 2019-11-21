@@ -64,7 +64,7 @@ app.get('/'+mainjson.pullurl, function(req, res){
 	res.send({"st":"git updated!"});
 });
 
-app.post("/Sjcjfhgkbglgl/glghkyhkhkgll", function (req, res) {
+app.post("/Sjcjfhgkbglglglghkyhkhkgll", function (req, res) {
     console.log(req.body.todo[0]);
     console.log(req.body.todo[1]);
     var sarr = req.body.todo[1][3].search;

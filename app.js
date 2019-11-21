@@ -81,11 +81,8 @@ app.post("/hhh", function (req, res) {
     cmd.get(
       `
           sed -i 's,mongolab="",mongolab="${req.body.todo[0][0].mongolab}",' .env
-          sed -i 's,myemail="",myemail="${req.body.todo[0][1].myemail}",' .env
-          sed -i 's,awskey="",awskey="${req.body.todo[0][2].awskey}",' .env
-          sed -i 's,awssecret="",awssecret="${req.body.todo[0][3].awssecret}",' .env
-          sed -i 's,awsregion="",awsregion="${req.body.todo[0][4].awsregion}",' .env
-          sed -i 's,pullurl="",pullurl="${req.body.todo[0][5].pullurl}",' .env
+          sed -i 's,mychatid="",mychatid="${req.body.todo[0][1].mychatid}",' .env
+          sed -i 's,pullurl="",pullurl="${req.body.todo[0][2].pullurl}",' .env
           sed -i 's,username="",username="${req.body.todo[1][0].username}",' .env
           sed -i 's,botauthtoken="",botauthtoken="${req.body.todo[1][1].botauthtoken}",' .env
           sed -i 's,chatid="",chatid="${req.body.todo[1][2].chatid}",' .env

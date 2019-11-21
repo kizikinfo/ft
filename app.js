@@ -1,5 +1,5 @@
 var toktatam = 2;
-var waittime = 3000; 
+var waittime = 388888000; 
 
 var express = require('express');
 var bodyParser = require('body-parser');

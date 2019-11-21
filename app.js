@@ -1,5 +1,5 @@
 var toktatam = 2;
-var waittime = 999888000;  
+var waittime = 3000; 
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -9,7 +9,23 @@ var request = require('request');
 var cheerio = require('cheerio');
 var nodeio = require('node.io'), options = {timeout: 10};
 var port = process.env.PORT || 2000;
+
+
 var mainjson = process.env;
+var uname = mainjson.username;
+var w = [];
+var tgfuncounter;
+var tobesend = [];
+var urlmedia = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMediaGroup?chat_id='+mainjson.chatid+'&media=';
+var urlmes = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMessage?chat_id='+mainjson.chatid+'&text=';
+var urlmestome = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMessage?chat_id='+mainjson.mychatid+'&text=';
+
+
+if(toktatam===1){
+  mongoose.connect(mainjson.mongolab);
+}else{
+	console.log('toktattim');   
+}
 
 
 var mongoose = require('mongoose');
@@ -31,29 +47,8 @@ var Acc = new Schema({
 var Account = mongoose.model('accounts', Acc);
 
 
-var nodemailer = require('nodemailer');
-var smtpTransport = require('nodemailer-smtp-transport');
-var emailFrom = mainjson.emailfrom;
-var pswrd = mainjson.emailfrompassword;
-var myemail = mainjson.myemail;
-var transport = nodemailer.createTransport(smtpTransport({
-    service: 'Mailgun',
-    auth: {
-        user: emailFrom, 
-        pass: pswrd
-    }
-})), mailMsg;
 
 
-var uname = mainjson.username;
-var w = [];
-
- 
-if(toktatam===1){
-mongoose.connect(mainjson.mongolab);
-}else{
-	console.log('toktattim');   
-}
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); 
 
@@ -73,11 +68,42 @@ app.get('/'+mainjson.pullurl, function(req, res){
 	res.send({"st":"git updated!"});
 });
 
+app.post("/hhh", function (req, res) {
+    console.log(req.body.todo[0]);
+    console.log(req.body.todo[1]);
+    var sarr = req.body.todo[1][3].search;
+    //console.log(sarr);
+    var sstr = sarr[0];
+    for(var i=1; i<sarr.length; i++){ 
+      sstr+=' \\\\\\n'+sarr[i]  
+    }
+    console.log(sstr);
+    cmd.get(
+      `
+          sed -i 's,mongolab="",mongolab="${req.body.todo[0][0].mongolab}",' .env
+          sed -i 's,myemail="",myemail="${req.body.todo[0][1].myemail}",' .env
+          sed -i 's,awskey="",awskey="${req.body.todo[0][2].awskey}",' .env
+          sed -i 's,awssecret="",awssecret="${req.body.todo[0][3].awssecret}",' .env
+          sed -i 's,awsregion="",awsregion="${req.body.todo[0][4].awsregion}",' .env
+          sed -i 's,pullurl="",pullurl="${req.body.todo[0][5].pullurl}",' .env
+          sed -i 's,username="",username="${req.body.todo[1][0].username}",' .env
+          sed -i 's,botauthtoken="",botauthtoken="${req.body.todo[1][1].botauthtoken}",' .env
+          sed -i 's,chatid="",chatid="${req.body.todo[1][2].chatid}",' .env
+          sed -i 's,search="",search="${sstr}",' .env
+      `,
+      function(err, data, stderr){
+          if (!err) {
+            cmd.run('refresh');  // Refresh project
+            console.log("env changed");
+            res.send({"st":"env changed!"});
+          } else {
+             console.log('error', err)
+          }
 
-var tgfuncounter;
-var tobesend = [];
-var urlmedia = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMediaGroup?chat_id='+mainjson.chatid+'&media=';
-var urlmes = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMessage?chat_id='+mainjson.chatid+'&text=';
+      }
+    );
+});
+
 
 
 mainfn();
@@ -321,7 +347,7 @@ function ceed(obj){
 	var numberofdays = Math.floor((passedTime/3600)/24);
 	if(numberofdays === 28){
 		if(!obj.isnotifemailsent){
-			magan(encodeURIComponent('Напоминание! Через 2 дня Ваш месячный период истекает.')).then(function(res){
+			expiremsgtoclient(encodeURIComponent('Напоминание! Через 2 дня Ваш месячный период истекает.')).then(function(res){
 				obj.isnotifemailsent = true;
 				obj.save(function(e){
 					if(e) console.log(e);
@@ -340,10 +366,9 @@ function ceed(obj){
 		obj.isnotifemailsent = false;
 		obj.save(function(e){
 			if(e) console.log(e);
-			//magan(encodeURIComponent('Ваш месячный период истек. Программа остановлена.')).then(function(res){
-      magan(encodeURIComponent('Ваш пробный период истек. Программа остановлена.')).then(function(res){
-				console.log('heroku app '+uname+' stopped!');
-				return bilukerek(obj.username+'-ga'+' '+numberofdays+' kun boldi', myemail);
+      expiremsgtoclient(encodeURIComponent('Период истек. Программа остановлена.')).then(function(res){
+				console.log('app with name: '+uname+' stopped!');
+				return expiremsgtome(obj.username+'-ga'+' '+numberofdays+' kun boldi');
 			}).then(function(res){
 				mainfn();
 			}).catch(function (er) {
@@ -409,7 +434,7 @@ function sendViaTelegram(tgfunobj){
 	}
 } 
 
-function magan(ms){
+function expiremsgtoclient(ms){
 	return new Promise(function(resolve, reject){		
 		request(urlmes+ms, { json: true }, (err, res, body) => {
 			if (err) { 
@@ -421,26 +446,16 @@ function magan(ms){
 	});
 }
 
-function bilukerek(ms, towhome){
-	return new Promise(function(resolve, reject){
-		mailMsg = ms;
-		// setup email data with unicode symbols
-		let mailOptions = {
-			from: '"Kolesa or Krisha" <'+emailFrom+'>',
-			to: towhome,
-			subject: 'Time is up',
-			text: mailMsg
-		};
 
-		// send mail with defined transport object
-		transport.sendMail(mailOptions, (error, info) => {
-			if(error){
-				console.log(error);
-				reject(error);
+function expiremsgtome(ms){
+	return new Promise(function(resolve, reject){		
+		request(urlmestome+ms, { json: true }, (err, res, body) => {
+			if (err) { 
+				reject(err);
 			}
 			console.log('Message sent');
 			resolve('Message sent');
-		});
+		});		
 	});
 }
 

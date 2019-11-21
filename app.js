@@ -10,24 +10,6 @@ var cheerio = require('cheerio');
 var nodeio = require('node.io'), options = {timeout: 10};
 var port = process.env.PORT || 2000;
 
-
-var mainjson = process.env;
-var uname = mainjson.username;
-var w = [];
-var tgfuncounter;
-var tobesend = [];
-var urlmedia = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMediaGroup?chat_id='+mainjson.chatid+'&media=';
-var urlmes = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMessage?chat_id='+mainjson.chatid+'&text=';
-var urlmestome = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMessage?chat_id='+mainjson.mychatid+'&text=';
-
-
-if(toktatam===1){
-  mongoose.connect(mainjson.mongolab);
-}else{
-	console.log('toktattim');   
-}
-
-
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Acc = new Schema({ 
@@ -46,7 +28,21 @@ var Acc = new Schema({
 });
 var Account = mongoose.model('accounts', Acc);
 
+var mainjson = process.env;
+var uname = mainjson.username;
+var w = [];
+var tgfuncounter;
+var tobesend = [];
+var urlmedia = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMediaGroup?chat_id='+mainjson.chatid+'&media=';
+var urlmes = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMessage?chat_id='+mainjson.chatid+'&text=';
+var urlmestome = 'https://api.telegram.org/bot'+mainjson.botauthtoken+'/sendMessage?chat_id='+mainjson.mychatid+'&text=';
 
+
+if(toktatam===1){
+  mongoose.connect(mainjson.mongolab);
+}else{
+	console.log('toktattim');   
+}
 
 
 app.use(bodyParser.urlencoded({ extended: false }));

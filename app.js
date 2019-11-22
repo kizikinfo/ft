@@ -74,15 +74,17 @@ app.get('/'+mainjson.pullurl, function(req, res){
 });
 
 app.post("/Sjcjfhgkbglglglghkyhkhkgll", function (req, res) {
-    console.log(req.body.todo[0]);
-    console.log(req.body.todo[1]);
+    //console.log(req.body.todo[0]);
+    //console.log(req.body.todo[1]);
     var sarr = req.body.todo[1][3].search;
     //console.log(sarr);
     var sstr = sarr[0];
     for(var i=1; i<sarr.length; i++){ 
       sstr+=' \\\\\\n'+sarr[i]  
     }
-    console.log(sstr);
+    //console.log(sstr);
+    var toktaptur = 2;
+    var jurdi = 1;
     cmd.get(
       `
           sed -i 's,mongolab="",mongolab="${req.body.todo[0][0].mongolab}",' .env
@@ -93,11 +95,12 @@ app.post("/Sjcjfhgkbglglglghkyhkhkgll", function (req, res) {
           sed -i 's,botauthtoken="",botauthtoken="${req.body.todo[1][1].botauthtoken}",' .env
           sed -i 's,chatid="",chatid="${req.body.todo[1][2].chatid}",' .env
           sed -i 's,search="",search="${sstr}",' .env
+          sed -i 's,toktatam = ${toktaptur},toktatam = ${jurdi},' app.js
       `,
       function(err, data, stderr){
           if (!err) {
             cmd.run('refresh');  // Refresh project
-            console.log("env changed");
+            console.log("env and app.js files have been changed");
             res.send({"st":"env changed!"});
           } else {
              console.log('error', err)

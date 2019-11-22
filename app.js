@@ -199,6 +199,9 @@ function comment(){
 						var pictureelement = document(this).find('.a-card__image');
 						var elhref = 'https://krisha.kz'+pictureelement.attr('href');
 						var elprice = document(this).find('.a-card__price').text().trim();
+            if(elprice.indexOf('от')>-1){
+              elprice = elprice.replace('от', '');
+            }
 						var eltitle = document(this).find('.a-card__title').text().trim();
 						var elsubtitle = document(this).find('.a-card__subtitle').text().trim();
 						var elimgsource = '';

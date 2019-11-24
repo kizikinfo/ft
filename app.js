@@ -1,4 +1,4 @@
-var toktatam = 1;
+var toktatam = 1a;
 var waittime = 20000; 
 
 var express = require('express');

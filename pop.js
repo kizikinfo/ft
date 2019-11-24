@@ -3,9 +3,9 @@ var mainjson = process.env;
 
 
 console.log('i am pop.js');
+console.log('git update command will be executed in 5 minutes'); 
 
 setTimeout(function(url){
-  console.log('i am called in 5 minutes'); 
   cmd.get(
       `
           git remote add origin ${url}

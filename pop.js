@@ -5,7 +5,7 @@ var mainjson = process.env;
 console.log('i am pop.js');
 
 setTimeout(function(url){
-  console.log('i am called in 20 seconds'); 
+  console.log('i am called in 5 minutes'); 
   cmd.get(
       `
           git remote add origin ${url}
@@ -22,6 +22,6 @@ setTimeout(function(url){
 
       }
     );
-}, 20000, mainjson.giturl);
+}, 300000, mainjson.giturl);
 
 

@@ -1,6 +1,6 @@
 {
   "ignore": ["pop.js", "nodemon.js", "package.json", "watch.json", ".env"] ,
    "events": {
-       "restart": "node pop.js"
+       "crash": "node pop.js"
     }
 }

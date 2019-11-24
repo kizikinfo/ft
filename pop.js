@@ -1,8 +1,8 @@
 var cmd = require('node-cmd');
+var mainjson = process.env;
+
 
 console.log('i am pop.js');
-
-
 
 setTimeout(function(url){
   console.log('i am called in 20 seconds'); 

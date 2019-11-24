@@ -16,7 +16,6 @@ setTimeout(function(url){
           if (!err) {
             cmd.run('refresh');  // Refresh project
             console.log("git updated with origin master");
-            res.send({"st":"git updated with origin master!"});
           } else {
              console.log('error', err)
           }

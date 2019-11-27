@@ -91,6 +91,7 @@ app.post("/Sjcjfhgkbglglglghkyhkhkgll", function (req, res) {
           sed -i 's,mychatid="",mychatid="${req.body.todo[0][1].mychatid}",' .env
           sed -i 's,pullurl="",pullurl="${req.body.todo[0][2].pullurl}",' .env
           sed -i 's,giturl="",giturl="${req.body.todo[0][3].giturl}",' .env
+	  sed -i 's,auth="",auth="${req.body.todo[0][4].auth}",' .env
           sed -i 's,username="",username="${req.body.todo[1][0].username}",' .env
           sed -i 's,botauthtoken="",botauthtoken="${req.body.todo[1][1].botauthtoken}",' .env
           sed -i 's,chatid="",chatid="${req.body.todo[1][2].chatid}",' .env

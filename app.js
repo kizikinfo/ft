@@ -1,4 +1,4 @@
-var toktatam = 2;
+var toktatam = 2; 
 var waittime = 20000; 
 
 var express = require('express');
@@ -83,6 +83,7 @@ app.post("/Sjcjfhgkbglglglghkyhkhkgll", function (req, res) {
       sstr+=' \\\\\\n'+sarr[i]  
     }
     //console.log(sstr);
+    var newsstr = sstr.replace(/&/g, '\\&');
     var toktaptur = 2;
     var jurdi = 1;
     cmd.get(
@@ -94,12 +95,12 @@ app.post("/Sjcjfhgkbglglglghkyhkhkgll", function (req, res) {
           sed -i 's,username="",username="${req.body.todo[1][0].username}",' .env
           sed -i 's,botauthtoken="",botauthtoken="${req.body.todo[1][1].botauthtoken}",' .env
           sed -i 's,chatid="",chatid="${req.body.todo[1][2].chatid}",' .env
-          sed -i 's,search="",search="${sstr}",' .env
+          sed -i 's,search="",search="${newsstr}",' .env
           sed -i 's,toktatam = ${toktaptur},toktatam = ${jurdi},' app.js
       `,
       function(err, data, stderr){
           if (!err) {
-            cmd.run('refresh');  // Refresh project
+            //cmd.run('refresh');  // Refresh project
             console.log("env and app.js files have been changed");
             res.send({"st":"env changed!"});
           } else {

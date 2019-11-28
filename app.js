@@ -1,4 +1,5 @@
 var toktatam = 2; 
+var sar = "minani kostim";
 var waittime = 20000; 
 
 var express = require('express');

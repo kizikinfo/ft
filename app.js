@@ -100,7 +100,7 @@ app.post("/Sjcjfhgkbglglglghkyhkhkgll", function (req, res) {
       `,
       function(err, data, stderr){
           if (!err) {
-            //cmd.run('refresh');  // Refresh project
+            cmd.run('refresh');  // Refresh project
             console.log("env and app.js files have been changed");
             res.send({"st":"env changed!"});
           } else {

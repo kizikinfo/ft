@@ -7,7 +7,7 @@
   "description": "What am I about?",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -16,8 +16,7 @@
     "mongoose": "^4.9.3",
     "node-cmd": "^3.0.0",
     "node.io": "^0.5.1",
-    "request": "^2.80.0",
-    "nodemon": "^2.0.1"
+    "request": "^2.80.0"
   },
   "engines": {
     "node": "8.x"

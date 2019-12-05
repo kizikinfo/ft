@@ -327,7 +327,6 @@ function commenthelper(somear, obj){
 				obj.check[obj.num].push(JSON.stringify(mainar));
 				console.log('without difference');
 				if(testemail===2){
-          console.log('3');
 					rstrt(obj);
 				}else{
 					expiremsgtoclient('test message sent successfully');
@@ -338,7 +337,6 @@ function commenthelper(somear, obj){
 	    	if(testemail===2){
 					rstrt(obj);
 				}else{
-          console.log('6');
 					expiremsgtoclient('test message sent successfully');
 				}
 	    }

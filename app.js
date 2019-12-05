@@ -1,5 +1,6 @@
-var toktatam = 2; 
+var toktatam = 2;    
 var waittime = 20000; 
+var testemail = 2;
 
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -262,7 +263,6 @@ function commenthelper(somear, obj){
 	}		
 	console.log('mainar:');
 	console.log(mainar);
-	//sendEmail('f,g,h', obj);
 	
     if(obj.check[obj.num].length===0){
 		console.log('obj check length is 0, mainar will be pushed');
@@ -316,17 +316,31 @@ function commenthelper(somear, obj){
 				obj.koiw[obj.num].push(JSON.stringify(koiwar));
 				obj.check[obj.num].pop();
 				obj.check[obj.num].push(JSON.stringify(mainar));
-				console.log('email will be sent');				
-				sendEmail(someararray, obj);
+				console.log('email will be sent');
+				if(testemail===2){
+					sendEmail(someararray, obj);
+				}else{
+					expiremsgtoclient('test message sent successfully');
+				}
 			}else{
 				obj.check[obj.num].pop();
 				obj.check[obj.num].push(JSON.stringify(mainar));
 				console.log('without difference');
-				rstrt(obj);
+				if(testemail===2){
+          console.log('3');
+					rstrt(obj);
+				}else{
+					expiremsgtoclient('test message sent successfully');
+				}
 			}
 	    }else{
 	    	console.log('no difference');
-	    	rstrt(obj);
+	    	if(testemail===2){
+					rstrt(obj);
+				}else{
+          console.log('6');
+					expiremsgtoclient('test message sent successfully');
+				}
 	    }
     }
 }

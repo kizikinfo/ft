@@ -3,7 +3,7 @@ var mainjson = process.env;
 
 
 console.log('i am pop.js');
-console.log('git update command will be executed in 5 minutes'); 
+console.log('git update command will be executed in 25 secs'); 
 
 setTimeout(function(url){
   cmd.get(
@@ -14,14 +14,36 @@ setTimeout(function(url){
       `,
       function(err, data, stderr){
           if (!err) {
+            
             cmd.run('refresh');  // Refresh project
             console.log("git updated with origin master");
+            
+            /*******/
+            var toktaptur = 2;
+            var jurdi = 1;            
+            cmd.get(
+              `
+                  sed -i 's,toktatam = ${toktaptur},toktatam = ${jurdi},' app.js
+              `,
+              function(err, data, stderr){
+                  if (!err) {
+                    cmd.run('refresh');  // Refresh project
+                    console.log("var toktatam have been changed");
+                  } else {
+                     console.log('error', err)
+                  }
+
+              }
+            );            
+            /*******/
+            
+            
           } else {
              console.log('error', err)
           }
 
       }
     );
-}, 300000, mainjson.giturl);
+}, 25000, mainjson.giturl);
 
 

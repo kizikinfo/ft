@@ -3,7 +3,7 @@ var mainjson = process.env;
 
 
 console.log('i am pop.js');
-console.log('git update command will be executed in 25 secs'); 
+console.log('git update command will be executed in 5 minutes'); 
 
 setTimeout(function(url){
   cmd.get(
@@ -17,8 +17,6 @@ setTimeout(function(url){
             
             cmd.run('refresh');  // Refresh project
             console.log("git updated with origin master");
-            
-            /*******/
             var toktaptur = 2;
             var jurdi = 1;            
             cmd.get(
@@ -34,16 +32,13 @@ setTimeout(function(url){
                   }
 
               }
-            );            
-            /*******/
-            
-            
+            ); 
           } else {
              console.log('error', err)
           }
 
       }
     );
-}, 25000, mainjson.giturl);
+}, 300000, mainjson.giturl);
 
 
